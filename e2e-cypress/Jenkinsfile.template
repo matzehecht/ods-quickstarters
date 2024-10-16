@@ -32,6 +32,7 @@ odsComponentPipeline(
   def targetDirectory = "${context.projectId}/${context.componentId}/${context.gitBranch.replaceAll('/', '-')}/${context.buildNumber}"
 
   stageInstall(context)
+  stageTypecheck(context)
   stageTest(context)
   odsComponentStageScanWithSonar(context)
 
@@ -51,6 +52,12 @@ odsComponentPipeline(
 def stageInstall(def context) {
   stage('Install dependencies') {
     sh 'npm ci'
+  }
+}
+
+def stageTypecheck(def context) {
+  stage('Checking types') {
+    sh 'npx tsc --noEmit'
   }
 }
 

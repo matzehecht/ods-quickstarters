@@ -68,6 +68,16 @@ Cypress.Commands.add('loginToAAD', (username: string, password: string) => {
   log.end()
 })
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Cypress {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+    interface Chainable {
+      loginToAAD(username: string, password: string): void;
+    }
+  }
+}
+
 export const consoleLogs: string[] = [];
 
 beforeEach(function() {
@@ -75,7 +85,7 @@ beforeEach(function() {
 })
 
 afterEach(function() {
-  const testName = this.currentTest.fullTitle().replace(/ /g, '_');
+  const testName = this.currentTest?.fullTitle().replace(/ /g, '_');
   const fileName = `system-output-${testName}.txt`;
   const filePath = `cypress/results/${fileName}`;
 

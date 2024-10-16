@@ -8,7 +8,7 @@
 // ***********************************************
 
 import { addGenericLoginCommands } from './generic-login';
-import { addMsalv2LoginCommand } from './msalv2-login';
+// import { addMsalv2LoginCommand } from './msalv2-login';
 
 addGenericLoginCommands();
-addMsalv2LoginCommand();
+// addMsalv2LoginCommand();
