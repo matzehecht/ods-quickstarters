@@ -31,6 +31,7 @@ odsComponentPipeline(
 ) { context ->
   def targetDirectory = "${context.projectId}/${context.componentId}/${context.gitBranch.replaceAll('/', '-')}/${context.buildNumber}"
 
+  stageInstall(context)
   stageTest(context)
   odsComponentStageScanWithSonar(context)
 
@@ -45,6 +46,12 @@ odsComponentPipeline(
     )
   }
 
+}
+
+def stageInstall(def context) {
+  stage('Install dependencies') {
+    sh 'npm ci'
+  }
 }
 
 def stageTest(def context) {
@@ -69,7 +76,6 @@ def stageTest(def context) {
       "COMMIT_INFO_SHA=${context.gitCommit}",
       "BUILD_NUMBER=${context.buildNumber}",
     ]) {
-      sh 'npm install'
       def status = sh(script: 'npm run e2e', returnStatus: true)
       sh 'npm run combine:reports'
       junit(testResults:'build/test-results/*.xml', allowEmptyResults: true)
