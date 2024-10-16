@@ -1,5 +1,5 @@
-import { defineConfig } from 'cypress'
-import CommonCypressConfig from './cypress.config'
+import { defineConfig } from 'cypress';
+import CommonCypressConfig from './cypress.config';
 
 export default defineConfig({
   ...CommonCypressConfig,
@@ -11,4 +11,4 @@ export default defineConfig({
     ...CommonCypressConfig.e2e,
     specPattern: 'tests/acceptance/*.cy.ts',
   },
-})
+});

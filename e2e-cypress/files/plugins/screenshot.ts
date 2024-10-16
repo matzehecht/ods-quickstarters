@@ -41,7 +41,10 @@ export const addEvidenceMetaToScreenshot = async (data: ScreenshotEvidenceData):
             align: SCREENSHOT_METADATA.textAlign,
             rgba: true,
             text: metadata
-              .map(([key, value]) => `<span foreground="${SCREENSHOT_METADATA.textColor}" size="${SCREENSHOT_METADATA.textSize}"><b>${key}</b>: ${value}</span>`)
+              .map(
+                ([key, value]) =>
+                  `<span foreground="${SCREENSHOT_METADATA.textColor}" size="${SCREENSHOT_METADATA.textSize}"><b>${key}</b>: ${value}</span>`,
+              )
               .join('\t'),
             width: (imageMetadata.width ?? 0) - SCREENSHOT_METADATA.margin * 2,
           },
@@ -57,5 +60,5 @@ export const addEvidenceMetaToScreenshot = async (data: ScreenshotEvidenceData):
   return {
     hash,
     path: data.path,
-  }
+  };
 };

@@ -24,7 +24,7 @@ const setupNodeEvents: NonNullable<Cypress.ConfigOptions['setupNodeEvents']> = (
     },
     async takeScreenshotEvidence(data: ScreenshotEvidenceData) {
       return await addEvidenceMetaToScreenshot(data);
-    }
+    },
   });
 };
 

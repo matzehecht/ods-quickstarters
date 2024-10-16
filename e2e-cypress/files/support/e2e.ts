@@ -1,9 +1,8 @@
 //For more details, you can follow this link:
 //https://docs.cypress.io/guides/end-to-end-testing/azure-active-directory-authentication#Microsoft-AAD-Application-Setup
 function loginViaAAD(username: string, password: string) {
-
   //Go to your application URL and trigger the login.
-  cy.visit('')
+  cy.visit('');
 
   //If needed, navigate and click on the login button.
   //As an example:
@@ -22,14 +21,14 @@ function loginViaAAD(username: string, password: string) {
     ({ username, password }) => {
       cy.get('input[type="email"]').type(username, {
         log: false,
-      })
-      cy.get('input[type="submit"]').click()
+      });
+      cy.get('input[type="submit"]').click();
       cy.get('input[type="password"]').type(password, {
         log: false,
-      })
-      cy.get('input[type="submit"]').click()
-    }
-  )
+      });
+      cy.get('input[type="submit"]').click();
+    },
+  );
 
   //Depending on the user and how they are registered with Microsoft, the origin may go to live.com
   //cy.origin(
@@ -49,7 +48,7 @@ function loginViaAAD(username: string, password: string) {
   //)
 
   // Ensure Microsoft has redirected us back to the sample app with our logged in user.
-  cy.url().should('equal', Cypress.config().baseUrl)
+  cy.url().should('equal', Cypress.config().baseUrl);
 }
 
 //See how to use it at:
@@ -59,14 +58,14 @@ Cypress.Commands.add('loginToAAD', (username: string, password: string) => {
     displayName: 'Azure Active Directory Login',
     message: [`🔐 Authenticating | ${username}`],
     autoEnd: false,
-  })
-  log.snapshot('before')
+  });
+  log.snapshot('before');
 
-  loginViaAAD(username, password)
+  loginViaAAD(username, password);
 
-  log.snapshot('after')
-  log.end()
-})
+  log.snapshot('after');
+  log.end();
+});
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -80,11 +79,11 @@ declare global {
 
 export const consoleLogs: string[] = [];
 
-beforeEach(function() {
+beforeEach(function () {
   consoleLogs.splice(0);
-})
+});
 
-afterEach(function() {
+afterEach(function () {
   const testName = this.currentTest?.fullTitle().replace(/ /g, '_');
   const fileName = `system-output-${testName}.txt`;
   const filePath = `cypress/results/${fileName}`;
@@ -92,4 +91,4 @@ afterEach(function() {
   cy.writeFile(filePath, consoleLogs.join('\n'));
 
   consoleLogs.splice(0);
-})
+});

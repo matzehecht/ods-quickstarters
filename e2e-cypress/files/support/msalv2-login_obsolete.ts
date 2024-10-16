@@ -50,7 +50,7 @@ const msalv2Login = () => {
       username: aadUsername, // cloud-only user! see comment at the top
       password: aadPassword,
     },
-  }).then(response => {
+  }).then((response) => {
     const tokens = response.body;
     // FILL SESSION STORAGE AS MSALv2 EXPECTS IT
     // The token tells us how many seconds until expiration;
@@ -60,7 +60,9 @@ const msalv2Login = () => {
     const extendedExpiresOn = cachedAt + tokens.ext_expires_in;
 
     // We can pull the rest of the data we need off of the ID token body
-    const id_token = tokens.id_token ? JSON.parse(Buffer.from(tokens.id_token.split('.')[1], 'base64').toString('utf-8')) : null;
+    const id_token = tokens.id_token
+      ? JSON.parse(Buffer.from(tokens.id_token.split('.')[1], 'base64').toString('utf-8'))
+      : null;
 
     const clientId = id_token?.aud;
     const tenantId = id_token?.tid;
@@ -119,8 +121,8 @@ const msalv2Login = () => {
     };
 
     // STORE IN SESSION STORAGE
-    cy.window().then(window =>
-      Object.entries(cacheEntries).forEach(([key, value]) => window.sessionStorage.setItem(key, JSON.stringify(value)))
+    cy.window().then((window) =>
+      Object.entries(cacheEntries).forEach(([key, value]) => window.sessionStorage.setItem(key, JSON.stringify(value))),
     );
   });
 };

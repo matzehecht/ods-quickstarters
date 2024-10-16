@@ -1,4 +1,4 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   //projectId: '[Your project ID from Cypress cloud]',
@@ -9,9 +9,9 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: 'https://www.w3schools.com',
-    fixturesFolder: "fixtures",
+    fixturesFolder: 'fixtures',
     specPattern: 'tests/**/*.cy.ts',
-    supportFile: "support/e2e.ts",
+    supportFile: 'support/e2e.ts',
     viewportWidth: 1376,
     viewportHeight: 660,
     experimentalModifyObstructiveThirdPartyCode: true,
@@ -20,4 +20,4 @@ export default defineConfig({
       return (await import('./plugins/index')).default(on, config);
     },
   },
-})
+});

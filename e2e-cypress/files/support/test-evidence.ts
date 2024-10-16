@@ -1,9 +1,9 @@
 import * as path from 'path';
-import { isScreenshotEvidenceResult, ScreenshotEvidenceData } from "../plugins/screenshot.types";
-import { consoleLogs } from "./e2e";
+import { isScreenshotEvidenceResult, ScreenshotEvidenceData } from '../plugins/screenshot.types';
+import { consoleLogs } from './e2e';
 
 const logEvidence = (name: string, step: number, description: string, evidenceLogs: string[]) => {
-  cy.url().then(url => {
+  cy.url().then((url) => {
     const logs: string[] = [];
     logs.push('=====================================');
     logs.push(`Testname: ${name} // step: ${step}`);
@@ -15,28 +15,40 @@ const logEvidence = (name: string, step: number, description: string, evidenceLo
     consoleLogs.push(...logs);
     cy.task('log', logs.join('\n'));
   });
-}
+};
 
 export const printTestDOMEvidence = (testName: string, testStep: number, selector: string, description: string) => {
   if (!selector) {
     throw new Error('selector must not NOT be undefined');
   }
-  cy.get(selector).then($selectedElement => {
+  cy.get(selector).then(($selectedElement) => {
     logEvidence(testName, testStep, description, [`Selector: ${selector}\n ${$selectedElement.get(0).outerHTML}`]);
   });
 };
 
-export const printTestPlainEvidence = (testName: string, testStep: number, expectedValue: string, actualValue: string, description: string) => {
+export const printTestPlainEvidence = (
+  testName: string,
+  testStep: number,
+  expectedValue: string,
+  actualValue: string,
+  description: string,
+) => {
   if (!expectedValue || !actualValue) {
     throw new Error('expectedValue and actualValue must not NOT be undefined');
   }
   logEvidence(testName, testStep, description, [
     `Expected Result:\n ${String(expectedValue)}`,
-    `Actual Result:\n ${String(actualValue)}`
+    `Actual Result:\n ${String(actualValue)}`,
   ]);
 };
 
-export const takeScreenshotEvidence = (testName: string, testStep: number, testSubStep: number = 1, description: string, skipMeta = false) => {
+export const takeScreenshotEvidence = (
+  testName: string,
+  testStep: number,
+  testSubStep: number = 1,
+  description: string,
+  skipMeta = false,
+) => {
   cy.wrap(null).then(() => {
     const data: Omit<ScreenshotEvidenceData, 'path' | 'takenAt'> &
       Partial<Pick<ScreenshotEvidenceData, 'path' | 'takenAt'>> = {
@@ -63,7 +75,7 @@ export const takeScreenshotEvidence = (testName: string, testStep: number, testS
         }
 
         logEvidence(testName, testStep, description, [
-          `Stored screenshot "${path.basename(result.path)}" with hash (sha256) ${result.hash} taken at ${String(data.takenAt)} as evidence.`
+          `Stored screenshot "${path.basename(result.path)}" with hash (sha256) ${result.hash} taken at ${String(data.takenAt)} as evidence.`,
         ]);
       });
   });
