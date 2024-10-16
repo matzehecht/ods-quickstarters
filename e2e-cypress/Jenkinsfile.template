@@ -32,8 +32,9 @@ odsComponentPipeline(
   def targetDirectory = "${context.projectId}/${context.componentId}/${context.gitBranch.replaceAll('/', '-')}/${context.buildNumber}"
 
   stageInstall(context)
-  stageTypecheck(context)
   stageTest(context)
+  stageTypecheck(context)
+  stageLint(context)
   odsComponentStageScanWithSonar(context)
 
   if (fileExists('cypress/screenshots.zip')) {
@@ -58,6 +59,12 @@ def stageInstall(def context) {
 def stageTypecheck(def context) {
   stage('Checking types') {
     sh 'npx tsc --noEmit'
+  }
+}
+
+def stageLint(def context) {
+  stage('Lint') {
+    sh 'npm run lint'
   }
 }
 
