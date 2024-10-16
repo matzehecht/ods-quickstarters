@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unused-modules */
 // ***********************************************
 // This commands.js contains custom commands and
 // overwrite existing commands.

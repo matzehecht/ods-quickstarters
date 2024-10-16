@@ -1,5 +1,6 @@
 import * as path from 'path';
-import { isScreenshotEvidenceResult, ScreenshotEvidenceData } from '../plugins/screenshot.types';
+import type { ScreenshotEvidenceData } from '../plugins/screenshot.types';
+import { isScreenshotEvidenceResult } from '../plugins/screenshot.types';
 import { consoleLogs } from './e2e';
 
 const logEvidence = (name: string, step: number, description: string, evidenceLogs: string[]) => {
@@ -45,7 +46,7 @@ export const printTestPlainEvidence = (
 export const takeScreenshotEvidence = (
   testName: string,
   testStep: number,
-  testSubStep: number = 1,
+  testSubStep = 1,
   description: string,
   skipMeta = false,
 ) => {

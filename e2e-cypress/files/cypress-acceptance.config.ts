@@ -3,12 +3,12 @@ import CommonCypressConfig from './cypress.config';
 
 export default defineConfig({
   ...CommonCypressConfig,
-  reporterOptions: {
-    ...CommonCypressConfig.reporterOptions,
-    mochaFile: 'build/test-results/acceptance-junit-[hash].xml',
-  },
   e2e: {
     ...CommonCypressConfig.e2e,
     specPattern: 'tests/acceptance/*.cy.ts',
+  },
+  reporterOptions: {
+    ...CommonCypressConfig.reporterOptions,
+    mochaFile: 'build/test-results/acceptance-junit-[hash].xml',
   },
 });

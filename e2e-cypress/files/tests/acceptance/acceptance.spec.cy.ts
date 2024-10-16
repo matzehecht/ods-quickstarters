@@ -1,6 +1,5 @@
 import { printTestDOMEvidence, printTestPlainEvidence, takeScreenshotEvidence } from '../../support/test-evidence';
 
-/* tslint:disable:no-unused-expression */
 // describe('ADD login example test', () => {
 
 //   beforeEach(() => {

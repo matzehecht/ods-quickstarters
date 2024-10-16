@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Azure SSO with MSALv2
 // ***********************************************
 // Originally developed by @tbabik and @herrkoch

@@ -14,11 +14,11 @@ function loginViaAAD(username: string, password: string) {
     'https://login.microsoftonline.com',
     {
       args: {
-        username,
         password,
+        username,
       },
     },
-    ({ username, password }) => {
+    ({ password, username }) => {
       cy.get('input[type="email"]').type(username, {
         log: false,
       });
@@ -55,9 +55,9 @@ function loginViaAAD(username: string, password: string) {
 //tests/acceptance/acceptance.spec.cy.ts
 Cypress.Commands.add('loginToAAD', (username: string, password: string) => {
   const log = Cypress.log({
+    autoEnd: false,
     displayName: 'Azure Active Directory Login',
     message: [`🔐 Authenticating | ${username}`],
-    autoEnd: false,
   });
   log.snapshot('before');
 
@@ -68,9 +68,7 @@ Cypress.Commands.add('loginToAAD', (username: string, password: string) => {
 });
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Chainable {
       loginToAAD(username: string, password: string): void;
     }
@@ -84,7 +82,7 @@ beforeEach(function () {
 });
 
 afterEach(function () {
-  const testName = this.currentTest?.fullTitle().replace(/ /g, '_');
+  const testName = this.currentTest?.fullTitle().replace(/ /g, '_') ?? 'unknown';
   const fileName = `system-output-${testName}.txt`;
   const filePath = `cypress/results/${fileName}`;
 
