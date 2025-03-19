@@ -16,7 +16,6 @@ import { printTestDOMEvidence, printTestPlainEvidence, takeScreenshotEvidence } 
 // });
 
 describe('W3 application test', () => {
-
   it('Application is reachable', function () {
     cy.visit('/html/tryit.asp?filename=tryhtml_basic_paragraphs');
     cy.title().should('include', 'Tryit Editor');

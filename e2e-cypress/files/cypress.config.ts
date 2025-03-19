@@ -1,5 +1,5 @@
-import { defineConfig } from 'cypress'
-import setupNodeEvents from './plugins/index.js'
+import { defineConfig } from 'cypress';
+import setupNodeEvents from './plugins/index.js';
 export default defineConfig({
   reporter: 'cypress-multi-reporters',
   reporterOptions: {
@@ -10,7 +10,7 @@ export default defineConfig({
       charts: true,
       html: true,
       timestamp: true,
-      json: true
+      json: true,
     },
     reportersCustomReporterJsReporterOptions: {
       mochaFile: 'build/test-results/tests-[hash].xml',
@@ -19,9 +19,9 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: process.env.BASE_URL || 'https://www.w3schools.com',
-    fixturesFolder: "fixtures",
+    fixturesFolder: 'fixtures',
     specPattern: 'tests/**/*.cy.ts',
-    supportFile: "support/e2e.ts",
+    supportFile: 'support/e2e.ts',
     screenshotsFolder: 'build/test-results/screenshots',
     viewportWidth: 1280,
     viewportHeight: 720,
@@ -34,4 +34,4 @@ export default defineConfig({
   // env: {
   //   otp_secret: process.env.OTP_SECRET
   // },
-})
+});

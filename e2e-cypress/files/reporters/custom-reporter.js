@@ -14,7 +14,7 @@ CustomJUnitReporter.prototype = Object.create(MochaJUnitReporter.prototype);
 CustomJUnitReporter.prototype.constructor = CustomJUnitReporter;
 
 // Override the getTestcaseData method to include custom logic
-CustomJUnitReporter.prototype.getTestcaseData = function(test, err) {
+CustomJUnitReporter.prototype.getTestcaseData = function (test, err) {
   // Call the original getTestcaseData method to get the base data
   const testcase = MochaJUnitReporter.prototype.getTestcaseData.call(this, test, err);
 
@@ -34,4 +34,3 @@ CustomJUnitReporter.prototype.getTestcaseData = function(test, err) {
 };
 
 module.exports = CustomJUnitReporter;
-

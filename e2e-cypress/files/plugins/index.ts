@@ -24,7 +24,7 @@ const setupNodeEvents: NonNullable<Cypress.ConfigOptions['setupNodeEvents']> = (
     },
     async takeScreenshotEvidence(data: ScreenshotEvidenceData) {
       return await addEvidenceMetaToScreenshot(data);
-    }
+    },
   });
   on('before:browser:launch', (browser: Cypress.Browser, launchOptions) => {
     if (browser.isHeadless && (browser.name === 'chrome' || browser.name === 'edge')) {

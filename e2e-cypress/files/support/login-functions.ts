@@ -4,9 +4,8 @@
 import { authenticator } from 'otplib';
 
 function loginViaAAD(username: string, password: string) {
-
   //Go to your application URL and trigger the login.
-  cy.visit('')
+  cy.visit('');
 
   //If needed, navigate and click on the login button.
   //As an example:
@@ -25,14 +24,14 @@ function loginViaAAD(username: string, password: string) {
     ({ username, password }) => {
       cy.get('input[type="email"]').type(username, {
         log: false,
-      })
-      cy.get('input[type="submit"]').click()
+      });
+      cy.get('input[type="submit"]').click();
       cy.get('input[type="password"]').type(password, {
         log: false,
-      })
-      cy.get('input[type="submit"]').click()
+      });
+      cy.get('input[type="submit"]').click();
     }
-  )
+  );
 
   //Depending on the user and how they are registered with Microsoft, the origin may go to live.com
   //cy.origin(
@@ -67,7 +66,7 @@ export function addLoginToAAD() {
       loginViaAAD(username, password);
 
       // Ensure Microsoft has redirected us back to the sample app with our logged in user.
-      cy.url().should('equal', Cypress.config().baseUrl)
+      cy.url().should('equal', Cypress.config().baseUrl);
 
       log.snapshot('after');
       log.end();
@@ -78,42 +77,41 @@ export function addLoginToAAD() {
 export function addSessionLoginWithMFA() {
   Cypress.Commands.add('sessionLoginWithMFA', (username: string, password: string) => {
     cy.session('login', () => cy.loginToAADWithMFA(username, password), {
-      validate: () => new Promise((resolve, reject) => {
-        try {
-          cy.getAllLocalStorage()
-            .should(validateLocalStorage)
-            .then(() => {
-              resolve()
-            })
-        } catch (e) {
-          reject(e)
-        }
-      }),
+      validate: () =>
+        new Promise((resolve, reject) => {
+          try {
+            cy.getAllLocalStorage()
+              .should(validateLocalStorage)
+              .then(() => {
+                resolve();
+              });
+          } catch (e) {
+            reject(e);
+          }
+        }),
       cacheAcrossSpecs: true,
-    })
-  })
+    });
+  });
 }
 
 export function addLoginToAADWithMFA() {
   Cypress.Commands.add('loginToAADWithMFA', (username: string, password: string) => {
     loginViaAAD(username, password);
-    cy.getTOTP().then((otp) => {
-      const objOTP = { otp }
+    cy.getTOTP().then(otp => {
+      const objOTP = { otp };
       cy.origin('https://login.microsoftonline.com/', { args: objOTP }, ({ otp }) => {
-        cy.get("[name='otc']").type(otp)
-        cy.get('input[type="submit"]').click()
-      })
-    })
-  })
+        cy.get("[name='otc']").type(otp);
+        cy.get('input[type="submit"]').click();
+      });
+    });
+  });
 }
 
 export function addGetTOTP() {
   Cypress.Commands.add('getTOTP', () => {
     return cy.wrap(authenticator.generate(Cypress.env('otp_secret')));
-  })
+  });
 }
 
 const validateLocalStorage = (localStorage: Record<string, unknown>) =>
-  Cypress._.some(localStorage, (value: unknown, key: string) =>
-    key.includes('CognitoIdentityServiceProvider'),
-  )
+  Cypress._.some(localStorage, (value: unknown, key: string) => key.includes('CognitoIdentityServiceProvider'));
