@@ -12,6 +12,10 @@
     "status": "SUCCESS"
   },
   {
+    "stage": "Lint",
+    "status": "SUCCESS"
+  },
+  {
     "stage": "Integration Test",
     "status": "SUCCESS"
   },

@@ -34,6 +34,7 @@ odsComponentPipeline(
 
   stageInstall(context)
   stageTypeCheck(context)
+  stageLint(context)
   stageTest(context)
   odsComponentStageScanWithSonar(context)
 
@@ -79,6 +80,12 @@ def stageInstall(def context) {
 def stageTypeCheck(def context) {
   stage('Check types') {
     sh 'npx tsc --noEmit'
+  }
+}
+
+def stageLint(def context) {
+  stage('Lint') {
+    sh 'npm run lint'
   }
 }
 
