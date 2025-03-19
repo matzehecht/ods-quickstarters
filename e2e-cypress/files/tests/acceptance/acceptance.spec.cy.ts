@@ -23,8 +23,14 @@ describe('W3 application test', () => {
     printTestDOMEvidence(this.test?.fullTitle() ?? '', 2, '#iframecontainer', 'rendered code area');
     takeScreenshotEvidence(this.test?.fullTitle() ?? '', 3, 1, 'screenshot');
     takeScreenshotEvidence(this.test?.fullTitle() ?? '', 3, 2, 'screenshot substep 2');
-    cy.title().then(title => {
-      printTestPlainEvidence(this.test?.fullTitle() ?? '', 4, title, 'Tryit Editor', 'Title should include Tryit Editor');
+    cy.title().then((title) => {
+      printTestPlainEvidence(
+        this.test?.fullTitle() ?? '',
+        4,
+        title,
+        'Tryit Editor',
+        'Title should include Tryit Editor',
+      );
     });
   });
 });

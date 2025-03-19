@@ -30,7 +30,7 @@ function loginViaAAD(username: string, password: string) {
         log: false,
       });
       cy.get('input[type="submit"]').click();
-    }
+    },
   );
 
   //Depending on the user and how they are registered with Microsoft, the origin may go to live.com
@@ -97,7 +97,7 @@ export function addSessionLoginWithMFA() {
 export function addLoginToAADWithMFA() {
   Cypress.Commands.add('loginToAADWithMFA', (username: string, password: string) => {
     loginViaAAD(username, password);
-    cy.getTOTP().then(otp => {
+    cy.getTOTP().then((otp) => {
       const objOTP = { otp };
       cy.origin('https://login.microsoftonline.com/', { args: objOTP }, ({ otp }) => {
         cy.get("[name='otc']").type(otp);

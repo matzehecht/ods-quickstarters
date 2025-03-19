@@ -18,14 +18,14 @@ afterEach(function () {
 });
 
 Cypress.Commands.add('addContextPath', (title: string, contextPath: string) => {
-  cy.on('test:after:run', attributes => {
+  cy.on('test:after:run', (attributes) => {
     // The context needs the path relative to the build/test-results/mochawesome folder
     addContext(
       { test: attributes },
       {
         title: title,
         value: contextPath,
-      }
+      },
     );
   });
 });

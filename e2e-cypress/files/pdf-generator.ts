@@ -14,7 +14,7 @@ async function expandReportTestCases(htmlPage: puppeteer.Page) {
 
 const mochawesomeDir = path.resolve(
   __dirname,
-  baseConfig.reporterOptions?.mochawesomeReporterOptions.reportDir ?? 'build/test-results/mochawesome'
+  baseConfig.reporterOptions?.mochawesomeReporterOptions.reportDir ?? 'build/test-results/mochawesome',
 );
 
 const isLocal = process.env.NODE_ENV === 'local';
@@ -40,7 +40,7 @@ const isLocal = process.env.NODE_ENV === 'local';
 
       const images = await page.$$('img');
       for (const image of images) {
-        await page.waitForFunction(img => img.complete && img.naturalHeight !== 0, {}, image);
+        await page.waitForFunction((img) => img.complete && img.naturalHeight !== 0, {}, image);
       }
 
       await page.addStyleTag({
@@ -53,7 +53,8 @@ const isLocal = process.env.NODE_ENV === 'local';
               `,
       });
 
-      if (!fs.existsSync(path.resolve(__dirname, mochawesomeDir, 'pdf'))) fs.mkdirSync(path.resolve(__dirname, mochawesomeDir, 'pdf'));
+      if (!fs.existsSync(path.resolve(__dirname, mochawesomeDir, 'pdf')))
+        fs.mkdirSync(path.resolve(__dirname, mochawesomeDir, 'pdf'));
 
       await page.pdf({
         path: path.resolve(__dirname, mochawesomeDir, 'pdf/', file.replace('.html', '.pdf')),

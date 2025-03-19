@@ -17,5 +17,5 @@ export const isScreenshotEvidenceResult = (candidate: unknown): candidate is Scr
       'hash' in candidate &&
       'path' in candidate &&
       typeof candidate.hash === 'string' &&
-      typeof candidate.path === 'string'
+      typeof candidate.path === 'string',
   );

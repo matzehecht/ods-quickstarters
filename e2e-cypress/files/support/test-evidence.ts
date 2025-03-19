@@ -3,7 +3,7 @@ import { isScreenshotEvidenceResult, ScreenshotEvidenceData } from '../plugins/s
 import { consoleLogs } from './e2e';
 
 const logEvidence = (name: string, step: number, description: string, evidenceLogs: string[]) => {
-  cy.url().then(url => {
+  cy.url().then((url) => {
     const logs: string[] = [];
     logs.push('=====================================');
     logs.push(`Testname: ${name} // step: ${step}`);
@@ -21,7 +21,7 @@ export const printTestDOMEvidence = (testName: string, testStep: number, selecto
   if (!selector) {
     throw new Error('selector must not NOT be undefined');
   }
-  cy.get(selector).then($selectedElement => {
+  cy.get(selector).then(($selectedElement) => {
     logEvidence(testName, testStep, description, [`Selector: ${selector}\n ${$selectedElement.get(0).outerHTML}`]);
   });
 };
@@ -31,12 +31,15 @@ export const printTestPlainEvidence = (
   testStep: number,
   expectedValue: string,
   actualValue: string,
-  description: string
+  description: string,
 ) => {
   if (!expectedValue || !actualValue) {
     throw new Error('expectedValue and actualValue must not NOT be undefined');
   }
-  logEvidence(testName, testStep, description, [`Expected Result:\n ${String(expectedValue)}`, `Actual Result:\n ${String(actualValue)}`]);
+  logEvidence(testName, testStep, description, [
+    `Expected Result:\n ${String(expectedValue)}`,
+    `Actual Result:\n ${String(actualValue)}`,
+  ]);
 };
 
 export const takeScreenshotEvidence = (
@@ -44,10 +47,11 @@ export const takeScreenshotEvidence = (
   testStep: number,
   testSubStep: number = 1,
   description: string,
-  skipMeta = false
+  skipMeta = false,
 ) => {
   cy.wrap(null).then(() => {
-    const data: Omit<ScreenshotEvidenceData, 'path' | 'takenAt'> & Partial<Pick<ScreenshotEvidenceData, 'path' | 'takenAt'>> = {
+    const data: Omit<ScreenshotEvidenceData, 'path' | 'takenAt'> &
+      Partial<Pick<ScreenshotEvidenceData, 'path' | 'takenAt'>> = {
       name: testName,
       step: testStep,
       subStep: testSubStep,
@@ -65,7 +69,7 @@ export const takeScreenshotEvidence = (
         }
         cy.task('takeScreenshotEvidence', data);
       })
-      .then(result => {
+      .then((result) => {
         if (!isScreenshotEvidenceResult(result)) {
           return null;
         }
