@@ -1,5 +1,7 @@
+import type { Context } from 'mocha';
 import './commands';
-const addContext = require('mochawesome/addContext');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+import addContext = require('mochawesome/addContext');
 
 export const consoleLogs: string[] = [];
 
@@ -20,12 +22,9 @@ afterEach(function () {
 Cypress.Commands.add('addContextPath', (title: string, contextPath: string) => {
   cy.on('test:after:run', (attributes) => {
     // The context needs the path relative to the build/test-results/mochawesome folder
-    addContext(
-      { test: attributes },
-      {
-        title: title,
-        value: contextPath,
-      },
-    );
+    addContext({ test: attributes } as Context, {
+      title: title,
+      value: contextPath,
+    });
   });
 });

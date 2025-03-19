@@ -8,7 +8,7 @@
 // ***********************************************
 
 import { addGenericLoginCommands } from './generic-login';
-import { addLoginToAADWithMFA, addLoginToAAD, addGetTOTP, addSessionLoginWithMFA } from './login-functions';
+import { addGetTOTP, addLoginToAAD, addLoginToAADWithMFA, addSessionLoginWithMFA } from './login-functions';
 
 addGenericLoginCommands();
 addGetTOTP();
@@ -17,13 +17,15 @@ addLoginToAAD();
 addLoginToAADWithMFA();
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- interface augmentation
     interface Chainable<> {
+      addContextPath(title: string, screenshot: string): void;
+      getTOTP(): Cypress.Chainable<string>;
       loginToAAD(username: string, password: string): void;
       loginToAADWithMFA(username: string, password: string): void;
       sessionLoginWithMFA(username: string, password: string): void;
-      getTOTP(): Cypress.Chainable<string>;
-      addContextPath(title: string, screenshot: string): void;
     }
   }
 }

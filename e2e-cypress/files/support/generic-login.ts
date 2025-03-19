@@ -10,8 +10,8 @@
 // For local development it is also possible to inject environment variables via a "./cypress.env.json" file. You can use
 // "./cypress.env.json.template" as a template for this. The leading "CYPRESS_..." is not needed here.
 
-const testUserName = Cypress.env('USERNAME') as string;
-const testUserPassword = Cypress.env('PASSWORD') as string;
+// const testUserName = Cypress.env('USERNAME') as string;
+// const testUserPassword = Cypress.env('PASSWORD') as string;
 
 const login = () => {
   Cypress.log({ name: 'login' });
@@ -37,7 +37,9 @@ export function addGenericLoginCommands() {
 }
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- interface augmentation
     interface Chainable {
       login: typeof login;
       logout: typeof logout;

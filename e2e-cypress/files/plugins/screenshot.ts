@@ -1,18 +1,18 @@
 import { createHash } from 'crypto';
 import { writeFile } from 'fs/promises';
 import * as sharp from 'sharp';
-import { ScreenshotEvidenceData, ScreenshotEvidenceResult } from './screenshot.types';
+import type { ScreenshotEvidenceData, ScreenshotEvidenceResult } from './screenshot.types';
 
 const SCREENSHOT_METADATA = {
+  backgroundColor: '#fff',
   height: 50,
   margin: 10,
+  maxNameLength: 100,
   textAlign: 'left',
   textColor: '#000',
   textSize: 'large',
-  backgroundColor: '#fff',
-  maxNameLength: 100,
 } as const;
-const EVIDENCE_HASH_ALGORITHM = 'sha256' as const;
+const EVIDENCE_HASH_ALGORITHM = 'sha256';
 
 export const addEvidenceMetaToScreenshot = async (data: ScreenshotEvidenceData): Promise<ScreenshotEvidenceResult> => {
   const metadata: [string, string][] = [

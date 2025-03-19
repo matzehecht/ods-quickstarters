@@ -1,5 +1,6 @@
 import * as path from 'path';
-import { isScreenshotEvidenceResult, ScreenshotEvidenceData } from '../plugins/screenshot.types';
+import type { ScreenshotEvidenceData } from '../plugins/screenshot.types';
+import { isScreenshotEvidenceResult } from '../plugins/screenshot.types';
 import { consoleLogs } from './e2e';
 
 const logEvidence = (name: string, step: number, description: string, evidenceLogs: string[]) => {
@@ -45,7 +46,7 @@ export const printTestPlainEvidence = (
 export const takeScreenshotEvidence = (
   testName: string,
   testStep: number,
-  testSubStep: number = 1,
+  testSubStep = 1,
   description: string,
   skipMeta = false,
 ) => {
@@ -79,7 +80,8 @@ export const takeScreenshotEvidence = (
         ]);
 
         // Create a relative path from the screenshots folder to the mochawesome test-results folder
-        const reportDir = Cypress.config('reporterOptions').mochawesomeReporterOptions.reportDir;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const reportDir = Cypress.config('reporterOptions').mochawesomeReporterOptions.reportDir as string;
         const relativePath = path.relative(reportDir, result.path.replace(/^.*(build.*)$/, '$1'));
         cy.addContextPath(`${testName} ${testStep} ${testSubStep}`, relativePath);
       });

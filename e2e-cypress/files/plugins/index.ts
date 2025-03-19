@@ -8,17 +8,18 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import type { ScreenshotEvidenceData } from './screenshot.types';
 import { addEvidenceMetaToScreenshot } from './screenshot';
+import type { ScreenshotEvidenceData } from './screenshot.types';
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const setupNodeEvents: NonNullable<Cypress.ConfigOptions['setupNodeEvents']> = (on, config) => {
+const setupNodeEvents: NonNullable<Cypress.ConfigOptions['setupNodeEvents']> = (on, _config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on('task', {
     log(message) {
+      // eslint-disable-next-line no-console
       console.log(message);
       return null;
     },

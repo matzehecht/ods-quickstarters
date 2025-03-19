@@ -1,6 +1,6 @@
-import * as puppeteer from 'puppeteer';
-import * as path from 'path';
 import * as fs from 'fs';
+import * as path from 'path';
+import * as puppeteer from 'puppeteer';
 import baseConfig from './cypress.config';
 
 async function expandReportTestCases(htmlPage: puppeteer.Page) {
@@ -14,12 +14,13 @@ async function expandReportTestCases(htmlPage: puppeteer.Page) {
 
 const mochawesomeDir = path.resolve(
   __dirname,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   baseConfig.reporterOptions?.mochawesomeReporterOptions.reportDir ?? 'build/test-results/mochawesome',
 );
 
 const isLocal = process.env.NODE_ENV === 'local';
 
-(async () => {
+void (async () => {
   try {
     const files = await fs.promises.readdir(mochawesomeDir);
 
@@ -53,17 +54,19 @@ const isLocal = process.env.NODE_ENV === 'local';
               `,
       });
 
-      if (!fs.existsSync(path.resolve(__dirname, mochawesomeDir, 'pdf')))
+      if (!fs.existsSync(path.resolve(__dirname, mochawesomeDir, 'pdf'))) {
         fs.mkdirSync(path.resolve(__dirname, mochawesomeDir, 'pdf'));
+      }
 
       await page.pdf({
-        path: path.resolve(__dirname, mochawesomeDir, 'pdf/', file.replace('.html', '.pdf')),
         format: 'A4',
+        path: path.resolve(__dirname, mochawesomeDir, 'pdf/', file.replace('.html', '.pdf')),
         printBackground: true,
       });
       await browser.close();
     }
 
+    // eslint-disable-next-line no-console
     console.log('PDF files generated successfully');
   } catch (error) {
     console.error('Error generating PDF:', error);

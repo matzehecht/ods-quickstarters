@@ -25,6 +25,7 @@
   "devDependencies": {
     "@boehringer-ingelheim/eslint-config": "^7.3.0",
     "@boehringer-ingelheim/prettier-config": "^2.0.0",
+    "@types/mochawesome": "^6.2.4",
     "@types/node": "^22.4.1",
     "cypress": "^13.13.1",
     "cypress-multi-reporters": "^1.6.4",
